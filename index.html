@@ -34,19 +34,38 @@
             color: #6c757d;
         }
         .btn-buy {
-            background-color: #28a745;
+            background-color: #6f42c1; /* Roxo */
             color: white;
             border: none;
+            border-radius: 25px; /* Bordas arredondadas */
+            padding: 10px 20px; /* Espaçamento interno */
+            transition: background-color 0.3s, transform 0.2s; /* Transição suave */
         }
         .btn-buy:hover {
-            background-color: #218838;
+            background-color: #563d7c; /* Roxo mais escuro */
+            transform: translateY(-2px); /* Levanta o botão um pouco */
+        }
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            background-color: #f8f9fa; /* Fundo claro para o cabeçalho */
+        }
+        .logo {
+            height: 50px; /* Altura da logo */
+            margin-right: 20px; /* Espaçamento à direita da logo */
         }
     </style>
 </head>
 <body>
 
-    <div class="container">
+    <div class="header">
+        <img src="sua-logo.png" alt="Logo" class="logo"> <!-- Substitua "sua-logo.png" pelo caminho da sua logo -->
         <h1 class="catalog-title">Catálogo de Roupas</h1>
+    </div>
+
+    <div class="container">
         <div class="row">
             <!-- Primeiro Item -->
             <div class="col-md-4 catalog-item">
@@ -58,7 +77,6 @@
                             <p>Aperte na imagem para ver mais opções</p>
                             <p>R$ 45.00</p>
                             <a href="finalizar.html" class="btn btn-buy">Comprar agora</a>
-
                         </div>
                     </div>
                 </div>
@@ -74,7 +92,6 @@
                             <p>Descrição da roupa 2</p>
                             <p>R$ 129,99</p>
                             <a href="finalizar.html" class="btn btn-buy">Comprar agora</a>
-
                         </div>
                     </div>
                 </div>
@@ -89,8 +106,7 @@
                             <h5>Roupa 3</h5>
                             <p>Descrição da roupa 3</p>
                             <p>R$ 79,99</p>
-<a href="finalizar.html" class="btn btn-buy">Comprar agora</a>
-
+                            <a href="finalizar.html" class="btn btn-buy">Comprar agora</a>
                         </div>
                     </div>
                 </div>
@@ -209,9 +225,9 @@
         </div>
     </div>
 
-    <!-- Bootstrap JS -->
+    <!-- jQuery e Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
