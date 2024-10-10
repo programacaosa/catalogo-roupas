@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formulário de Pedido</title>
+    <title>Carrinho de Compras</title>
     <!-- Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
@@ -11,32 +11,34 @@
             background-color: #f8f9fa; /* Cor de fundo suave */
         }
         .container {
-            max-width: 600px; /* Largura máxima do formulário */
-            margin: 50px auto; /* Centraliza o formulário verticalmente */
+            max-width: 800px; /* Largura máxima do carrinho */
+            margin: 50px auto; /* Centraliza o carrinho verticalmente */
             padding: 20px;
-            background: #ffffff; /* Fundo branco para o formulário */
+            background: #ffffff; /* Fundo branco para o carrinho */
             border-radius: 10px; /* Bordas arredondadas */
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Sombra suave */
         }
         .form-title {
             text-align: center;
             margin-bottom: 30px; /* Espaçamento abaixo do título */
-            font-size: 2em;
+            font-size: 2.5em; /* Tamanho maior do título */
             font-weight: bold;
             color: #343a40;
         }
         .form-group {
             margin-bottom: 20px; /* Espaçamento entre os campos do formulário */
         }
-        .btn-success {
-            background-color: #28a745; /* Cor de fundo verde */
-            border-color: #28a745; /* Cor da borda verde */
+        .btn-custom {
+            background-color: #6f42c1; /* Cor de fundo roxa */
+            border-color: #6f42c1; /* Cor da borda roxa */
             width: 100%; /* Botão ocupa toda a largura */
             font-size: 1.2em; /* Tamanho da fonte do botão */
+            border-radius: 25px; /* Bordas arredondadas */
+            transition: background-color 0.3s, border-color 0.3s; /* Transição suave */
         }
-        .btn-success:hover {
-            background-color: #218838; /* Cor do botão ao passar o mouse */
-            border-color: #1e7e34; /* Cor da borda ao passar o mouse */
+        .btn-custom:hover {
+            background-color: #5a32a1; /* Cor do botão ao passar o mouse */
+            border-color: #4c2c8b; /* Cor da borda ao passar o mouse */
         }
         label {
             font-weight: bold; /* Rótulos em negrito */
@@ -44,13 +46,31 @@
         .total-price {
             font-size: 1.5em; /* Tamanho maior para o valor total */
             color: #007bff; /* Cor azul para destacar o valor total */
+            text-align: right; /* Alinha o total à direita */
+            margin-top: 20px; /* Espaçamento acima do total */
+        }
+        .cart-items {
+            margin-bottom: 20px; /* Espaçamento entre a lista do carrinho e o botão */
+        }
+        .cart-item {
+            border: 1px solid #e0e0e0; /* Borda suave para cada item do carrinho */
+            border-radius: 5px; /* Bordas arredondadas */
+            padding: 10px;
+            margin-bottom: 10px; /* Espaçamento entre os itens do carrinho */
+            background-color: #f1f1f1; /* Fundo suave para os itens do carrinho */
+        }
+        /* Espaçamento entre os botões */
+        .button-spacing {
+            margin-top: 20px; /* Espaçamento acima dos botões */
         }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <h1 class="form-title">Formulário de Pedido</h1>
+        <h1 class="form-title">Carrinho de Compras</h1>
+        <div id="cart" class="cart-items"></div> <!-- Exibição dos itens do carrinho -->
+        
         <form id="orderForm">
             <div class="form-group">
                 <label for="name">Nome:</label>
@@ -69,10 +89,6 @@
                 <input type="email" class="form-control" id="email" required>
             </div>
             <div class="form-group">
-                <label for="size">Tamanho:</label>
-                <input type="text" class="form-control" id="size" required>
-            </div>
-            <div class="form-group">
                 <label for="color">Cor do Produto:</label>
                 <select class="form-control" id="color" required>
                     <option value="">Escolha uma cor</option>
@@ -82,76 +98,119 @@
                 </select>
             </div>
             <div class="form-group">
+                <label for="size">Tamanho:</label>
+                <select class="form-control" id="size" required>
+                    <option value="">Escolha um tamanho</option>
+                </select>
+            </div>
+            <div class="form-group">
                 <label for="quantity">Quantidade:</label>
                 <input type="number" class="form-control" id="quantity" value="1" min="1" required>
             </div>
-            <div class="form-group">
-                <label>Valor Unitário:</label>
-                <p>R$ 45,00</p>
-            </div>
-            <div class="form-group">
-                <label>Valor Total:</label>
-                <p id="totalPrice" class="total-price">R$ 45,00</p>
-            </div>
-            <button type="submit" class="btn btn-success">Enviar</button>
+            <button type="button" class="btn btn-custom" id="addToCart">Adicionar ao Carrinho</button> <!-- Botão para adicionar ao carrinho -->
         </form>
+
+        <!-- Espaçamento entre os botões -->
+        <div class="button-spacing">
+            <button type="button" class="btn btn-custom" id="finalizePurchase">Finalizar Compra</button> <!-- Botão para finalizar a compra -->
+        </div>
+        <div id="totalPrice" class="total-price"></div> <!-- Exibição do valor total -->
     </div>
 
     <script>
         // Valor unitário
         const unitPrice = 45.00;
+        const cart = []; // Array para armazenar itens do carrinho
 
-        // Atualiza o valor total ao alterar a quantidade
-        document.getElementById('quantity').addEventListener('input', function() {
-            const quantity = parseInt(this.value) || 0; // Captura a quantidade
-            const totalPrice = (unitPrice * quantity).toFixed(2); // Calcula o valor total
-            document.getElementById('totalPrice').innerText = `R$ ${totalPrice}`; // Atualiza o texto
+        // Mapeamento de tamanhos para cores
+        const sizesByColor = {
+            'Branco': ['P', 'M', 'G', 'GG'],
+            'Bege': ['P', 'M', 'G'],
+            'Preto': ['M', 'G', 'GG']
+        };
+
+        // Atualiza o tamanho baseado na cor escolhida
+        document.getElementById('color').addEventListener('change', function() {
+            const color = this.value;
+            const sizeSelect = document.getElementById('size');
+            sizeSelect.innerHTML = '<option value="">Escolha um tamanho</option>'; // Limpa tamanhos anteriores
+            
+            if (color) {
+                sizesByColor[color].forEach(size => {
+                    const option = document.createElement('option');
+                    option.value = size;
+                    option.innerText = size;
+                    sizeSelect.appendChild(option);
+                });
+            }
         });
 
-        document.getElementById('orderForm').addEventListener('submit', function(event) {
-            event.preventDefault(); // Evitar o envio padrão do formulário
-            
-            // Coletar dados do formulário
+        // Adiciona produto ao carrinho
+        document.getElementById('addToCart').addEventListener('click', function() {
             const name = document.getElementById('name').value;
             const address = document.getElementById('address').value;
             const contact = document.getElementById('contact').value;
             const email = document.getElementById('email').value;
-            const size = document.getElementById('size').value;
             const color = document.getElementById('color').value; // Captura a cor selecionada
+            const size = document.getElementById('size').value; // Captura o tamanho selecionado
             const quantity = document.getElementById('quantity').value;
-            const totalPrice = document.getElementById('totalPrice').innerText;
-
-            // Nome do produto
             const productName = "Calça Masculina Adulto Joggue";
 
-            // Criar mensagem formatada
-            const message = `
-*Pedido Novo*
-Produto: ${productName}
-Nome: ${name}
-Endereço: ${address}
-Contato: ${contact}
-E-mail: ${email}
-Tamanho: ${size}
-Cor: ${color}
-Quantidade: ${quantity}
-Valor Unitário: R$ ${unitPrice.toFixed(2)}
-${totalPrice}
-`;
+            // Adiciona o produto ao carrinho
+            cart.push({ productName, name, address, contact, email, color, size, quantity, unitPrice });
 
-            // Número do WhatsApp
-            const phoneNumber = '+5579981077018';
-            // URL do WhatsApp
-            const whatsappUrl = `https://api.whatsapp.com/send?phone=${phoneNumber}&text=${encodeURIComponent(message)}`;
+            // Atualiza a exibição do carrinho
+            updateCartDisplay();
+        });
 
-            // Abrir o WhatsApp com a mensagem pré-formatada
-            window.open(whatsappUrl);
+        // Atualiza a exibição do carrinho
+        function updateCartDisplay() {
+            const cartDiv = document.getElementById('cart');
+            cartDiv.innerHTML = ''; // Limpa a exibição anterior
+            let totalItemsPrice = 0; // Variável para calcular o total
+
+            cart.forEach(item => {
+                const itemDiv = document.createElement('div');
+                itemDiv.classList.add('cart-item');
+                itemDiv.innerHTML = `
+                    <strong>${item.productName}</strong><br>
+                    Cor: ${item.color} | Tamanho: ${item.size} | Quantidade: ${item.quantity}<br>
+                    Valor Unitário: R$ ${item.unitPrice.toFixed(2)} | Valor Total: R$ ${(item.unitPrice * item.quantity).toFixed(2)}
+                `;
+                cartDiv.appendChild(itemDiv);
+                totalItemsPrice += item.unitPrice * item.quantity; // Acumula o total
+            });
+
+            // Exibe o valor total no carrinho
+            const totalDiv = document.createElement('div');
+            totalDiv.innerHTML = `<strong>Valor Total do Carrinho: R$ ${totalItemsPrice.toFixed(2)}</strong>`;
+            cartDiv.appendChild(totalDiv);
+            document.getElementById('totalPrice').innerText = `Valor Total do Carrinho: R$ ${totalItemsPrice.toFixed(2)}`;
+        }
+
+        // Finaliza a compra
+        document.getElementById('finalizePurchase').addEventListener('click', function() {
+            const name = document.getElementById('name').value;
+            const address = document.getElementById('address').value;
+            const contact = document.getElementById('contact').value;
+            const email = document.getElementById('email').value;
+            const whatsappNumber = "+5579981077018"; // Número de WhatsApp (exemplo)
+
+            let message = `*Pedido de Compra*\n`;
+            message += `Nome: ${name}\n`;
+            message += `Endereço: ${address}\n`;
+            message += `Contato: ${contact}\n`;
+            message += `E-mail: ${email}\n\n`;
+            message += `Itens:\n`;
+            
+            cart.forEach(item => {
+                message += `${item.productName} | Cor: ${item.color} | Tamanho: ${item.size} | Quantidade: ${item.quantity} | Valor Total: R$ ${(item.unitPrice * item.quantity).toFixed(2)}\n`;
+            });
+
+            // Envia a mensagem para o WhatsApp
+            const whatsappUrl = `https://api.whatsapp.com/send?phone=${whatsappNumber}&text=${encodeURIComponent(message)}`;
+            window.open(whatsappUrl, '_blank'); // Abre o link no WhatsApp
         });
     </script>
-
-    <!-- Bootstrap JS, Popper.js, and jQuery -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
