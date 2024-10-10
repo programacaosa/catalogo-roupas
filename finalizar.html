@@ -48,11 +48,33 @@
                 <label for="color">Cor do Produto:</label>
                 <input type="text" class="form-control" id="color" required>
             </div>
+            <div class="form-group">
+                <label for="quantity">Quantidade:</label>
+                <input type="number" class="form-control" id="quantity" value="1" min="1" required>
+            </div>
+            <div class="form-group">
+                <label>Valor Unitário:</label>
+                <p>R$ 45,00</p>
+            </div>
+            <div class="form-group">
+                <label>Valor Total:</label>
+                <p id="totalPrice">R$ 45,00</p>
+            </div>
             <button type="submit" class="btn btn-success">Enviar</button>
         </form>
     </div>
 
     <script>
+        // Valor unitário
+        const unitPrice = 45.00;
+
+        // Atualiza o valor total ao alterar a quantidade
+        document.getElementById('quantity').addEventListener('input', function() {
+            const quantity = parseInt(this.value) || 0; // Captura a quantidade
+            const totalPrice = (unitPrice * quantity).toFixed(2); // Calcula o valor total
+            document.getElementById('totalPrice').innerText = `R$ ${totalPrice}`; // Atualiza o texto
+        });
+
         document.getElementById('orderForm').addEventListener('submit', function(event) {
             event.preventDefault(); // Evitar o envio padrão do formulário
             
@@ -63,16 +85,25 @@
             const email = document.getElementById('email').value;
             const size = document.getElementById('size').value;
             const color = document.getElementById('color').value;
+            const quantity = document.getElementById('quantity').value;
+            const totalPrice = document.getElementById('totalPrice').innerText;
+
+            // Nome do produto
+            const productName = "Calça Masculina Adulto Joggue";
 
             // Criar mensagem formatada
             const message = `
 *Pedido Novo*
+Produto: ${productName}
 Nome: ${name}
 Endereço: ${address}
 Contato: ${contact}
 E-mail: ${email}
 Tamanho: ${size}
 Cor: ${color}
+Quantidade: ${quantity}
+Valor Unitário: R$ ${unitPrice.toFixed(2)}
+${totalPrice}
 `;
 
             // Número do WhatsApp
