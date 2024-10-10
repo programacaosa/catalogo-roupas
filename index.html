@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo de Roupas</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .catalog-title {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 2em;
+            font-weight: bold;
+            color: #343a40;
+        }
+        .catalog-item {
+            margin-bottom: 30px;
+        }
+        .catalog-item img {
+            width: 100%;
+            height: auto;
+            cursor: pointer;
+        }
+        .item-details {
+            text-align: center;
+            margin-top: 10px;
+        }
+        .item-details h5 {
+            font-size: 1.25em;
+            color: #007bff;
+        }
+        .item-details p {
+            color: #6c757d;
+        }
+        .btn-buy {
+            background-color: #28a745;
+            color: white;
+            border: none;
+        }
+        .btn-buy:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1 class="catalog-title">Catálogo de Roupas</h1>
+        <div class="row">
+            <!-- Primeiro Item -->
+            <div class="col-md-4 catalog-item">
+                <div class="card">
+                    <img src="preto e bege.jpg" class="card-img-top" alt="Roupa 1" data-toggle="modal" data-target="#modalRoupa1">
+                    <div class="card-body">
+                        <div class="item-details">
+                            <h5>Calças masculinas</h5>
+                            <p>Aperte na imagem para ver mais opções</p>
+                            <p>R$ 45.00</p>
+                            <button class="btn btn-buy">Comprar agora</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Segundo Item -->
+            <div class="col-md-4 catalog-item">
+                <div class="card">
+                    <img src="preto e bege.jpg" class="card-img-top" alt="Roupa 2" data-toggle="modal" data-target="#modalRoupa2">
+                    <div class="card-body">
+                        <div class="item-details">
+                            <h5>Roupa 2</h5>
+                            <p>Descrição da roupa 2</p>
+                            <p>R$ 129,99</p>
+                            <button class="btn btn-buy">Comprar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Terceiro Item -->
+            <div class="col-md-4 catalog-item">
+                <div class="card">
+                    <img src="preto e bege.jpg" class="card-img-top" alt="Roupa 3" data-toggle="modal" data-target="#modalRoupa3">
+                    <div class="card-body">
+                        <div class="item-details">
+                            <h5>Roupa 3</h5>
+                            <p>Descrição da roupa 3</p>
+                            <p>R$ 79,99</p>
+                            <button class="btn btn-buy">Comprar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Roupa 1 -->
+    <div class="modal fade" id="modalRoupa1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Calças masculinas adulto</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div id="carouselRoupa1" class="carousel slide" data-ride="carousel">
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <img src="preto e bege.jpg" class="d-block w-100" alt="Calças masculinas adulto - Imagem 1">
+                            </div>
+                            <div class="carousel-item">
+                                <img src="bege.jpg" class="d-block w-100" alt="Calças masculinas adulto - Imagem 2">
+                            </div>
+                            <div class="carousel-item">
+                                <img src="descricao.jpg" class="d-block w-100" alt="Calças masculinas adulto - Imagem 3">
+                            </div>
+                        </div>
+                        <a class="carousel-control-prev" href="#carouselRoupa1" role="button" data-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Anterior</span>
+                        </a>
+                        <a class="carousel-control-next" href="#carouselRoupa1" role="button" data-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Próximo</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Roupa 2 -->
+    <div class="modal fade" id="modalRoupa2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Roupa 2</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div id="carouselRoupa2" class="carousel slide" data-ride="carousel">
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <img src="preto e bege.jpg" class="d-block w-100" alt="Roupa 2 - Imagem 1">
+                            </div>
+                            <div class="carousel-item">
+                                <img src="bege.jpg" class="d-block w-100" alt="Roupa 2 - Imagem 2">
+                            </div>
+                            <div class="carousel-item">
+                                <img src="descricao.jpg" class="d-block w-100" alt="Roupa 2 - Imagem 3">
+                            </div>
+                        </div>
+                        <a class="carousel-control-prev" href="#carouselRoupa2" role="button" data-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Anterior</span>
+                        </a>
+                        <a class="carousel-control-next" href="#carouselRoupa2" role="button" data-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Próximo</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Roupa 3 -->
+    <div class="modal fade" id="modalRoupa3" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Roupa 3</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div id="carouselRoupa3" class="carousel slide" data-ride="carousel">
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <img src="preto e bege.jpg" class="d-block w-100" alt="Roupa 3 - Imagem 1">
+                            </div>
+                            <div class="carousel-item">
+                                <img src="bege.jpg" class="d-block w-100" alt="Roupa 3 - Imagem 2">
+                            </div>
+                            <div class="carousel-item">
+                                <img src="descricao.jpg" class="d-block w-100" alt="Roupa 3 - Imagem 3">
+                            </div>
+                        </div>
+                        <a class="carousel-control-prev" href="#carouselRoupa3" role="button" data-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Anterior</span>
+                        </a>
+                        <a class="carousel-control-next" href="#carouselRoupa3" role="button" data-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Próximo</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
