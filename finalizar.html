@@ -7,15 +7,43 @@
     <!-- Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
+        body {
+            background-color: #f8f9fa; /* Cor de fundo suave */
+        }
+        .container {
+            max-width: 600px; /* Largura máxima do formulário */
+            margin: 50px auto; /* Centraliza o formulário verticalmente */
+            padding: 20px;
+            background: #ffffff; /* Fundo branco para o formulário */
+            border-radius: 10px; /* Bordas arredondadas */
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Sombra suave */
+        }
         .form-title {
             text-align: center;
-            margin-top: 20px;
+            margin-bottom: 30px; /* Espaçamento abaixo do título */
             font-size: 2em;
             font-weight: bold;
             color: #343a40;
         }
         .form-group {
-            margin-bottom: 15px;
+            margin-bottom: 20px; /* Espaçamento entre os campos do formulário */
+        }
+        .btn-success {
+            background-color: #28a745; /* Cor de fundo verde */
+            border-color: #28a745; /* Cor da borda verde */
+            width: 100%; /* Botão ocupa toda a largura */
+            font-size: 1.2em; /* Tamanho da fonte do botão */
+        }
+        .btn-success:hover {
+            background-color: #218838; /* Cor do botão ao passar o mouse */
+            border-color: #1e7e34; /* Cor da borda ao passar o mouse */
+        }
+        label {
+            font-weight: bold; /* Rótulos em negrito */
+        }
+        .total-price {
+            font-size: 1.5em; /* Tamanho maior para o valor total */
+            color: #007bff; /* Cor azul para destacar o valor total */
         }
     </style>
 </head>
@@ -58,7 +86,7 @@
             </div>
             <div class="form-group">
                 <label>Valor Total:</label>
-                <p id="totalPrice">R$ 45,00</p>
+                <p id="totalPrice" class="total-price">R$ 45,00</p>
             </div>
             <button type="submit" class="btn btn-success">Enviar</button>
         </form>
