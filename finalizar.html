@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulário de Pedido</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .form-title {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 2em;
+            font-weight: bold;
+            color: #343a40;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1 class="form-title">Formulário de Pedido</h1>
+        <form id="orderForm">
+            <div class="form-group">
+                <label for="name">Nome:</label>
+                <input type="text" class="form-control" id="name" required>
+            </div>
+            <div class="form-group">
+                <label for="address">Endereço para Entrega:</label>
+                <input type="text" class="form-control" id="address" required>
+            </div>
+            <div class="form-group">
+                <label for="contact">Contato de WhatsApp:</label>
+                <input type="text" class="form-control" id="contact" required>
+            </div>
+            <div class="form-group">
+                <label for="email">E-mail:</label>
+                <input type="email" class="form-control" id="email" required>
+            </div>
+            <div class="form-group">
+                <label for="size">Tamanho:</label>
+                <input type="text" class="form-control" id="size" required>
+            </div>
+            <div class="form-group">
+                <label for="color">Cor do Produto:</label>
+                <input type="text" class="form-control" id="color" required>
+            </div>
+            <button type="submit" class="btn btn-success">Enviar</button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('orderForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Evitar o envio padrão do formulário
+            
+            // Coletar dados do formulário
+            const name = document.getElementById('name').value;
+            const address = document.getElementById('address').value;
+            const contact = document.getElementById('contact').value;
+            const email = document.getElementById('email').value;
+            const size = document.getElementById('size').value;
+            const color = document.getElementById('color').value;
+
+            // Criar mensagem formatada
+            const message = `
+*Pedido Novo*
+Nome: ${name}
+Endereço: ${address}
+Contato: ${contact}
+E-mail: ${email}
+Tamanho: ${size}
+Cor: ${color}
+`;
+
+            // Número do WhatsApp
+            const phoneNumber = '+5579981077018';
+            // URL do WhatsApp
+            const whatsappUrl = `https://api.whatsapp.com/send?phone=${phoneNumber}&text=${encodeURIComponent(message)}`;
+
+            // Abrir o WhatsApp com a mensagem pré-formatada
+            window.open(whatsappUrl);
+        });
+    </script>
+
+    <!-- Bootstrap JS, Popper.js, and jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
