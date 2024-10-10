@@ -9,6 +9,7 @@
     <style>
         body {
             background-color: #f8f9fa; /* Cor de fundo suave */
+            font-family: 'Arial', sans-serif; /* Fonte padrão */
         }
         .container {
             max-width: 800px; /* Largura máxima do carrinho */
@@ -23,7 +24,8 @@
             margin-bottom: 30px; /* Espaçamento abaixo do título */
             font-size: 2.5em; /* Tamanho maior do título */
             font-weight: bold;
-            color: #343a40;
+            color: #6f42c1; /* Cor do título */
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1); /* Sombra suave no título */
         }
         .form-group {
             margin-bottom: 20px; /* Espaçamento entre os campos do formulário */
@@ -42,10 +44,12 @@
         }
         label {
             font-weight: bold; /* Rótulos em negrito */
+            color: #343a40; /* Cor do texto dos rótulos */
+            font-size: 1.1em; /* Aumenta o tamanho da fonte dos rótulos */
         }
         .total-price {
             font-size: 1.5em; /* Tamanho maior para o valor total */
-            color: #007bff; /* Cor azul para destacar o valor total */
+            color: #28a745; /* Cor verde para destacar o valor total */
             text-align: right; /* Alinha o total à direita */
             margin-top: 20px; /* Espaçamento acima do total */
         }
@@ -58,6 +62,9 @@
             padding: 10px;
             margin-bottom: 10px; /* Espaçamento entre os itens do carrinho */
             background-color: #f1f1f1; /* Fundo suave para os itens do carrinho */
+            color: #343a40; /* Cor do texto dos itens do carrinho */
+            font-family: 'Arial', sans-serif; /* Fonte dos itens do carrinho */
+            font-size: 1.1em; /* Tamanho da fonte dos itens do carrinho */
         }
         /* Espaçamento entre os botões */
         .button-spacing {
@@ -178,14 +185,11 @@
                     Valor Unitário: R$ ${item.unitPrice.toFixed(2)} | Valor Total: R$ ${(item.unitPrice * item.quantity).toFixed(2)}
                 `;
                 cartDiv.appendChild(itemDiv);
-                totalItemsPrice += item.unitPrice * item.quantity; // Acumula o total
+                totalItemsPrice += item.unitPrice * item.quantity; // Soma o total dos itens
             });
 
-            // Exibe o valor total no carrinho
-            const totalDiv = document.createElement('div');
-            totalDiv.innerHTML = `<strong>Valor Total do Carrinho: R$ ${totalItemsPrice.toFixed(2)}</strong>`;
-            cartDiv.appendChild(totalDiv);
-            document.getElementById('totalPrice').innerText = `Valor Total do Carrinho: R$ ${totalItemsPrice.toFixed(2)}`;
+            // Atualiza o valor total
+            document.getElementById('totalPrice').innerText = `Valor Total: R$ ${totalItemsPrice.toFixed(2)}`;
         }
 
         // Finaliza a compra
